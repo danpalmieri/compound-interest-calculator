@@ -10,60 +10,73 @@
 			content="Uma calculadora de juros compostos simples e intuitiva para usar no dia a dia."
 		/>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.0/dist/chart.min.js"></script>
+        <script src="https://github.com/codermarcos/simple-mask-money/releases/download/v3.0.0/simple-mask-money.js"></script>
 		<link rel="preconnect" href="https://fonts.gstatic.com" />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-			rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
 		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-			rel="stylesheet"
-		/>
-		<link rel="stylesheet" href="styles.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
 	</head>
 	<body>
-		<main class="container top-container">
-			<h1 class="page-title">Calculadora de Juros Compostos</h1>
-			<p class="hero-paragraph">
-				Descubra o quando você pode aumentar seu dinheiro com juros compostos.
+		<main class="container px-4 md:px-0 top-container max-w-6xl mx-auto mt-5 md:mt-10">
+			<h1 class="page-title text-3xl md:text-4xl font-light mb-2">Calculadora de Juros Compostos</h1>
+			<p class="hero-paragraph text-gray-500 text-lg mb-5">
+				Descubra o quanto você pode aumentar seu dinheiro com juros compostos.
 			</p>
-			<div class="calculator">
-				<form class="compound-form">
+			<div class="calculator flex-col md:flex-row flex gap-10 p-5 bg-gray-100 rounded">
+				<form class="compound-form space-y-3 w-full md:w-3/12">
 					<div class="compound-form-field">
-						<label for="principal">Investimento inicial</label>
-						<input
-							type="text"
-							name="principal"
-							id="principal"
-							placeholder="50.000"
-							required
-						/>
+                            <label for="principal" class="block text-sm font-medium text-gray-700">
+                                Investimento inicial
+                            </label>
+                            <div class="mt-1">
+                              <input type="text"
+                              name="principal"
+                              id="principal"
+                              inputmode="numeric"
+                              data-type='currency'
+                              placeholder="50.000"
+                              required class="shadow-sm border p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                            </div>
 					</div>
 					<div class="compound-form-field">
-						<label for="rate">Taxa de juros anual</label>
+						<label for="rate"  class="block text-sm font-medium text-gray-700">Taxa de juros anual</label>
+                        <div class="mt-1">
 						<input
 							type="text"
 							name="rate"
 							id="rate"
 							placeholder="12"
+                            class="shadow-sm border p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
 							required
 						/>
+                        </div>
 					</div>
 					<div class="compound-form-field">
-						<label for="period">Periodo em anos</label>
+						<label for="period" class="block text-sm font-medium text-gray-700">Periodo em anos</label>
+                        <div class="mt-1">
 						<input
-							type="text"
+							type="number"
 							name="period"
 							id="period"
 							placeholder="5"
+                            class="shadow-sm border p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
 							required
 						/>
+                    </div>
 					</div>
-					<div class="compound-form-field">
-						<input class="button" type="submit" value="Calcular" />
+					<div class="compound-form-field pt-2">
+                        <button type="submit" class="inline-flex items-center px-5 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Calcular</button>
 					</div>
 				</form>
+                <div id="preview" class="w-full md:w-9/12 mb-2 p-5 bg-white rounded flex text-gray-300 justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class="animate-pulse" viewBox="0 0 16 16">
+                        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+                      </svg>
+                </div>
 			</div>
+            <p class="py-5 text-gray-400 text-xs uppercase">by <a class="underline" target="_blank" href="https://instagram.com/dlpalmieri">@dlpalmieri</a></p>
 		</main>
 		<script src="sandbox.js"></script>
 	</body>

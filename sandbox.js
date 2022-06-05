@@ -7,14 +7,28 @@ let d = new Date();
 let year = d.getFullYear();
 let xLabels = [year];
 
+let args = {
+    allowNegative: false,
+    negativeSignAfter: false,
+    prefix: 'R$ ',
+    suffix: '',
+    fixed: false,
+    fractionDigits: 2,
+    decimalSeparator: ',',
+    thousandsSeparator: '.',
+    cursor: 'move'
+  };
+
+  const input = SimpleMaskMoney.setMask('#principal', args);
+
 form.addEventListener("submit", (e) => {
 	e.preventDefault();
 
 	compoundData = [];
 	xLabels = [year];
 
-	let P = parseFloat(e.target.principal.value); // principal
-	let i = parseFloat(e.target.rate.value); // nominal annual interest rate in percentage terms
+	let P = SimpleMaskMoney.formatToNumber(e.target.principal.value); // principal
+	let i = parseFloat(e.target.rate.value.replace(',','.')); // nominal annual interest rate in percentage terms
 	let n = parseFloat(e.target.period.value); // number of compounding periods
 
 	let ci;
@@ -26,12 +40,12 @@ form.addEventListener("submit", (e) => {
 	}
 
 	const html = `
-		<h2>Results</h2>
-		<p class="results-text">
-			Com o investimento inicial de <span class="highlight">R$ ${P}</span>,
-			e uma taxa de juros de <span class="highlight">${i}%</span> composta durante <span class="highlight">${n}</span> anos,
-			a quantida tota do seu investimento é:
-			<span class="ci-result-total">R$ ${compoundData[compoundData.length - 1]}</span>
+		<h2 class="text-xl">Resultados</h2>
+		<p class="results-text my-2 leading-7 max-w-2xl">
+			Com o investimento inicial de <span class="highlight border shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}</span>,
+			e uma taxa de juros de <span class="highlight border shadow-sm font-semibold py-0.5 px-2 rounded-full">${i}%</span> composta durante <span class="highlight border shadow-sm font-semibold py-0.5 px-2 rounded-full">${n}</span> anos,
+			a quantida tota do seu investimento é
+			<span class="highlight border shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}</span>.
 		</p>
 		<div class="chart-wrapper">
 			<canvas id="chart"></canvas>
@@ -39,8 +53,9 @@ form.addEventListener("submit", (e) => {
 	`;
 
 	if (!results) {
+        document.getElementById('preview').style.display='none';
 		const resDiv = document.createElement("div");
-		resDiv.className = "results";
+		resDiv.className = "results w-full md:w-9/12 mb-2 p-5 bg-white rounded shadow";
 		resDiv.innerHTML = html;
 
 		calculator.appendChild(resDiv);
@@ -56,7 +71,7 @@ form.addEventListener("submit", (e) => {
 			labels: xLabels,
 			datasets: [
 				{
-					// fill: { target: "origin", above: "rgba(255, 255, 255, 0.38)" },
+					fill: { target: "origin", above: "rgba(255, 255, 255, 0.5)" },
 					label: "Investimento",
 					data: compoundData,
 					backgroundColor: "#3D7BE2",
@@ -69,11 +84,11 @@ form.addEventListener("submit", (e) => {
 			scales: {
 				x: {
 					ticks: {
-						color: "rgba(255, 255, 255, 0.74)",
+						// color: "rgba(255, 255, 255, 0.74)",
 					},
 					grid: {
 						display: false,
-						borderColor: "rgba(255, 255, 255, 0.12)",
+						// borderColor: "rgba(255, 255, 255, 0.12)",
 					},
 				},
 				y: {
@@ -81,13 +96,13 @@ form.addEventListener("submit", (e) => {
 					ticks: {
 						// Include a euro sign in the ticks
 						callback: function (value, index, values) {
-							return "R$ " + value;
+							return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 						},
-						color: "rgba(255, 255, 255, 0.74)",
+						// color: "rgba(255, 255, 255, 0.74)",
 					},
 					grid: {
-						borderColor: "rgba(255, 255, 255, 0.12)",
-						color: "rgba(255, 255, 255, 0.12)",
+						// borderColor: "rgba(255, 255, 255, 0.12)",
+						// color: "rgba(255, 255, 255, 0.12)",
 					},
 				},
 			},
