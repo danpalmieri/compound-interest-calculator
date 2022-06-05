@@ -78,7 +78,7 @@ form.addEventListener("submit", (e) => {
                 <canvas id="chart"></canvas>
             </div>
         </div>
-        <div class="w-full flex justify-center">
+        <div class="w-full justify-center hidden md:flex">
             <button onclick="DownloadAsImage()" class="mx-5 border shadow hover:bg-gray-100 rounded py-1 px-5 mx-auto mb-3">Baixar como imagem</button>
         </div>
 	`;
