@@ -67,13 +67,13 @@ form.addEventListener("submit", (e) => {
             <p class="results-text mt-2 mb-4 leading-7 max-w-2xl relative">
                 Com o investimento inicial de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}</span>,
                 e uma taxa de juros de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${i}%</span> composta durante <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${n}</span> anos,
-                o total do seu investimento é
+                o total do seu investimento será de
                 <span class="border relative border-teal-300 shadow-sm font-semibold text-teal-500 py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}</span>
             </p>
             <p class="results-text-crude hidden mt-2 mb-4 leading-7 max-w-2xl relative">
                 Com o investimento inicial de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}
                 e uma taxa de juros de ${i}% composta durante ${n} anos,
-                o total do seu investimento é ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}.
+                o total do seu investimento será de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}.
             </p>
             <div class="chart-wrapper">
                 <canvas id="chart"></canvas>
