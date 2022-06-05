@@ -28,10 +28,10 @@ form.addEventListener("submit", (e) => {
 	const html = `
 		<h2>Results</h2>
 		<p class="results-text">
-			Given the initial investment of <span class="highlight">${P}</span>, 
-			an interest rate of <span class="highlight">${i}%</span> compounded annually for <span class="highlight">${n}</span> years, 
-			the compound interest of your investment is: 
-			<span class="ci-result-total">${compoundData[compoundData.length - 1]}€</span>
+			Com o investimento inicial de <span class="highlight">R$ ${P}</span>,
+			e uma taxa de juros de <span class="highlight">${i}%</span> composta durante <span class="highlight">${n}</span> anos,
+			a quantida tota do seu investimento é:
+			<span class="ci-result-total">R$ ${compoundData[compoundData.length - 1]}</span>
 		</p>
 		<div class="chart-wrapper">
 			<canvas id="chart"></canvas>
@@ -57,7 +57,7 @@ form.addEventListener("submit", (e) => {
 			datasets: [
 				{
 					// fill: { target: "origin", above: "rgba(255, 255, 255, 0.38)" },
-					label: "Future Value",
+					label: "Investimento",
 					data: compoundData,
 					backgroundColor: "#3D7BE2",
 					borderColor: "#3D7BE2",
@@ -81,7 +81,7 @@ form.addEventListener("submit", (e) => {
 					ticks: {
 						// Include a euro sign in the ticks
 						callback: function (value, index, values) {
-							return "€ " + value;
+							return "R$ " + value;
 						},
 						color: "rgba(255, 255, 255, 0.74)",
 					},
