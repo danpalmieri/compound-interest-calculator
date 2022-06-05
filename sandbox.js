@@ -40,6 +40,19 @@ let args = {
     cursor: 'end'
   };
 
+  let args2 = {
+    allowNegative: false,
+    negativeSignAfter: false,
+    prefix: '',
+    suffix: '%',
+    fixed: true,
+    fractionDigits: 2,
+    decimalSeparator: ',',
+    thousandsSeparator: '.',
+    cursor: 'end'
+  };
+
+  const input2 = SimpleMaskMoney.setMask('#aporte', args);
   const input = SimpleMaskMoney.setMask('#principal', args);
 
 form.addEventListener("submit", (e) => {
@@ -49,7 +62,8 @@ form.addEventListener("submit", (e) => {
 	xLabels = [year];
 
 	let P = SimpleMaskMoney.formatToNumber(e.target.principal.value); // principal
-	let i = parseFloat(e.target.rate.value.replace(',','.')); // nominal annual interest rate in percentage terms
+    let p2 = e.target.period2.value;
+	let i = parseFloat(e.target.rate.value * (p2 === 'mensal' ? 12 : 1)); // nominal interest rate in percentage terms
 	let n = parseFloat(e.target.period.value); // number of compounding periods
 
 	let ci;
@@ -65,13 +79,13 @@ form.addEventListener("submit", (e) => {
             <h2 class="text-xl">Resultados</h2>
             <p class="results-text mt-2 mb-4 leading-7 max-w-2xl relative">
                 Com o investimento inicial de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}</span>,
-                e uma taxa de juros de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${i}%</span> composta durante <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${n}</span> anos,
+                e uma taxa de juros ${p2} de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${i / (p2 === 'mensal' ? 12 : 1)}%</span> durante <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${n}</span> anos,
                 o total do seu investimento será de
                 <span class="border relative border-teal-300 shadow-sm font-semibold text-teal-500 py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}</span>
             </p>
             <p class="results-text-crude hidden mt-2 mb-4 leading-7 max-w-2xl relative">
                 Com o investimento inicial de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}
-                e uma taxa de juros de ${i}% composta durante ${n} anos,
+                e uma taxa de juros ${p2} de ${i / (p2 === 'mensal' ? 12 : 1)}% durante ${n} anos,
                 o total do seu investimento será de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}.
             </p>
             <div class="chart-wrapper">

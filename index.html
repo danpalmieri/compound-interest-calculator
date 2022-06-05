@@ -32,9 +32,21 @@
                               required class="shadow-sm border p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
                             </div>
 					</div>
-					<div class="compound-form-field">
-						<label for="rate"  class="block text-sm font-medium text-gray-700">Taxa de juros anual</label>
+                    <div class="compound-form-field">
+                        <label for="principal" class="block text-sm font-medium text-gray-700">
+                            Aporte mensal
+                        </label>
                         <div class="mt-1">
+                          <input type="text"
+                          name="aporte"
+                          id="aporte"
+                          inputmode="numeric"
+                          required class="shadow-sm border p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                </div>
+					<div class="compound-form-field">
+						<label for="rate"  class="block text-sm font-medium text-gray-700">Taxa de juros</label>
+                        <div class="mt-1 flex space-x-2 items-center">
 						<input
 							type="text"
 							name="rate"
@@ -43,6 +55,10 @@
                             class="shadow-sm border p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
 							required
 						/>
+                        <select id="period2" name="period2" autocomplete="country-name" class="block w-24 bg-white border border-gray-300 rounded-md shadow-sm py-2.5 px-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="anual">ao ano</option>
+                            <option value="mensal">ao mês</option>
+                          </select>
                         </div>
 					</div>
 					<div class="compound-form-field">
