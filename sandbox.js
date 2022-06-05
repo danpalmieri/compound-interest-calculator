@@ -79,15 +79,15 @@ form.addEventListener("submit", (e) => {
 		<div class="results-frame p-5">
             <h2 class="text-xl">Resultados</h2>
             <p class="results-text mt-2 mb-4 leading-7 max-w-2xl relative">
-                Com o investimento inicial de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}</span>,
+                Com o investimento inicial de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}</span>, aportes mensais de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(a)}</span>
                 e uma taxa de juros ${p2} de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${i / (p2 === 'mensal' ? 12 : 1)}%</span> durante <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${n}</span> anos,
-                o total do seu investimento será de
+                seu patrimônio será de
                 <span class="border relative border-teal-300 shadow-sm font-semibold text-teal-500 py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}</span>
             </p>
             <p class="results-text-crude hidden mt-2 mb-4 leading-7 max-w-2xl relative">
-                Com o investimento inicial de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}
+                Com o investimento inicial de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}, aportes mensais de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(a)}
                 e uma taxa de juros ${p2} de ${i / (p2 === 'mensal' ? 12 : 1)}% durante ${n} anos,
-                o total do seu investimento será de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}.
+                seu patrimônio será de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}.
             </p>
             <div class="chart-wrapper">
                 <canvas id="chart"></canvas>
