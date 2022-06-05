@@ -1,3 +1,25 @@
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    clearDynamicLink(link);
+}
+
+function DownloadAsImage() {
+    var element = document.querySelector(".results-frame");
+    document.querySelector('.results-text-crude').style.display = 'block';
+    document.querySelector('.results-text').style.display = 'none';
+    html2canvas(element).then(function (canvas) {
+        var myImage = canvas.toDataURL();
+        downloadURI(myImage, "projecao-juros-compostos.png");
+    });
+    document.querySelector('.results-text-crude').style.display = 'none';
+    document.querySelector('.results-text').style.display = 'block';
+}
+
 const form = document.querySelector(".compound-form");
 const calculator = document.querySelector(".calculator");
 let results = document.querySelector(".results");
@@ -40,22 +62,32 @@ form.addEventListener("submit", (e) => {
 	}
 
 	const html = `
-		<h2 class="text-xl">Resultados</h2>
-		<p class="results-text my-2 leading-7 max-w-2xl">
-			Com o investimento inicial de <span class="highlight border shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}</span>,
-			e uma taxa de juros de <span class="highlight border shadow-sm font-semibold py-0.5 px-2 rounded-full">${i}%</span> composta durante <span class="highlight border shadow-sm font-semibold py-0.5 px-2 rounded-full">${n}</span> anos,
-			a quantida tota do seu investimento é
-			<span class="highlight border shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}</span>.
-		</p>
-		<div class="chart-wrapper">
-			<canvas id="chart"></canvas>
-		</div>
+		<div class="results-frame p-5">
+            <h2 class="text-xl">Resultados</h2>
+            <p class="results-text mt-2 mb-4 leading-7 max-w-2xl relative">
+                Com o investimento inicial de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}</span>,
+                e uma taxa de juros de <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${i}%</span> composta durante <span class="border relative shadow-sm font-semibold py-0.5 px-2 rounded-full">${n}</span> anos,
+                o total do seu investimento é
+                <span class="border relative border-teal-300 shadow-sm font-semibold text-teal-500 py-0.5 px-2 rounded-full">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}</span>
+            </p>
+            <p class="results-text-crude hidden mt-2 mb-4 leading-7 max-w-2xl relative">
+                Com o investimento inicial de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(P)}
+                e uma taxa de juros de ${i}% composta durante ${n} anos,
+                o total do seu investimento é ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(compoundData[compoundData.length - 1])}.
+            </p>
+            <div class="chart-wrapper">
+                <canvas id="chart"></canvas>
+            </div>
+        </div>
+        <div class="w-full flex justify-center">
+            <button onclick="DownloadAsImage()" class="mx-5 border shadow hover:bg-gray-100 rounded py-1 px-5 mx-auto mb-3">Baixar como imagem</button>
+        </div>
 	`;
 
 	if (!results) {
         document.getElementById('preview').style.display='none';
 		const resDiv = document.createElement("div");
-		resDiv.className = "results w-full md:w-9/12 mb-2 p-5 bg-white rounded shadow";
+		resDiv.className = "results w-full md:w-9/12 mb-2 bg-white rounded shadow";
 		resDiv.innerHTML = html;
 
 		calculator.appendChild(resDiv);
@@ -67,6 +99,9 @@ form.addEventListener("submit", (e) => {
 	const ctx = document.getElementById("chart").getContext("2d");
 	const myChart = new Chart(ctx, {
 		type: "line",
+        legend: {
+            display: false
+        },
 		data: {
 			labels: xLabels,
 			datasets: [
@@ -81,6 +116,11 @@ form.addEventListener("submit", (e) => {
 			],
 		},
 		options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+            },
 			scales: {
 				x: {
 					ticks: {
