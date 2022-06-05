@@ -65,12 +65,13 @@ form.addEventListener("submit", (e) => {
     let p2 = e.target.period2.value;
 	let i = parseFloat(e.target.rate.value * (p2 === 'mensal' ? 12 : 1)); // nominal interest rate in percentage terms
 	let n = parseFloat(e.target.period.value); // number of compounding periods
+    let a = SimpleMaskMoney.formatToNumber(e.target.aporte.value); // number do aporte mensal
 
 	let ci;
 	compoundData.push(P);
 	for (let x = 1; x < n + 1; x++) {
 		xLabels.push(year + x);
-		ci = P * (1 + i / 100) ** x;
+		ci = (P * (1 + i / 100) ** x) + (a * 12 * (1 + i / 100) * x);
 		compoundData.push(ci.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
 	}
 
