@@ -1,6 +1,5 @@
 function downloadURI(uri, name) {
     var link = document.createElement("a");
-
     link.download = name;
     link.href = uri;
     document.body.appendChild(link);
@@ -34,11 +33,11 @@ let args = {
     negativeSignAfter: false,
     prefix: 'R$ ',
     suffix: '',
-    fixed: false,
+    fixed: true,
     fractionDigits: 2,
     decimalSeparator: ',',
     thousandsSeparator: '.',
-    cursor: 'move'
+    cursor: 'end'
   };
 
   const input = SimpleMaskMoney.setMask('#principal', args);
